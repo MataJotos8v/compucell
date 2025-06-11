@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribuidora Compucell C.A.</title>
+    <link rel="icon" href="compucell_logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="productos.json">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- encabezado -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <img src="compucell_logo.png" alt="Logo Compucell" style="height: 32px; vertical-align: middle;">
+                    Compucell
+                </h1>
+                <nav class="nav">
+                    <button id="homeBtn" class="nav-btn active">
+                        <i class="fas fa-home"></i>
+                        Inicio
+                    </button>
+                    <button id="adminBtn" class="nav-btn">
+                        <i class="fas fa-cog"></i>
+                        Administrar
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- contenido principal -->
+    <main class="main">
+        <!-- parte del cliente -->
+        <section id="customerSection" class="section active">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Nuestros Productos</h2>
+                    <p>Descubre nuestra selección de productos de alta calidad</p>
+                </div>
+                
+                <div class="search-bar">
+                    <div class="search-input-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar productos...">
+                    </div>
+                </div>
+
+                <div id="productsGrid" class="products-grid">
+                    <!-- Los productos se guardan aqui -->
+                </div>
+
+                <div id="noProducts" class="no-products" style="display: none;">
+                    <i class="fas fa-box-open"></i>
+                    <h3>No hay productos disponibles</h3>
+                    <p>Vuelve pronto para ver nuestras novedades</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Parte de administrador -->
+        <section id="adminSection" class="section">
+            <div class="container">
+                <!-- recuadro del login -->
+                <div id="loginForm" class="login-container">
+                    <div class="login-card">
+                        <div class="login-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h2>Acceso Administrativo</h2>
+                        </div>
+                        <form id="adminLoginForm">
+                            <div class="form-group">
+                                <label for="username">Usuario</label>
+                                <div class="input-container">
+                                    <i class="fas fa-user"></i>
+                                    <input type="text" id="username" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <div class="input-container">
+                                    <i class="fas fa-lock"></i>
+                                    <input type="password" id="password" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Ingresar
+                            </button>
+                        </form>
+                        <div class="login-info">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel de administrador -->
+                <div id="adminPanel" class="admin-panel" style="display: none;">
+                    <div class="admin-header">
+                        <h2>Panel de Administración</h2>
+                        <button id="logoutBtn" class="btn btn-secondary">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Cerrar Sesión
+                        </button>
+                    </div>
+
+                    <div class="admin-actions">
+                        <button id="addProductBtn" class="btn btn-success">
+                            <i class="fas fa-plus"></i>
+                            Agregar Producto
+                        </button>
+                    </div>
+
+                    <div class="admin-products">
+                        <h3>Productos Existentes</h3>
+                        <div id="adminProductsList" class="admin-products-list">
+                            <!-- productos de administrador -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- detaller de productos -->
+    <div id="productDetailModal" class="modal product-detail-modal">
+        <div class="modal-content product-detail-content">
+            <div class="modal-header">
+                <h3>Detalles del Producto</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="product-detail-body">
+                <div class="product-detail-image-section">
+                    <img id="detailProductImage" src="" alt="" class="product-detail-image">
+                </div>
+                <div class="product-detail-info-section">
+                    <h2 id="detailProductName" class="product-detail-name"></h2>
+                    <div id="detailProductPrice" class="product-detail-price"></div>
+                    
+                    <div class="product-detail-section">
+                        <h4><i class="fas fa-info-circle"></i> Descripción</h4>
+                        <p id="detailProductDescription" class="product-detail-description"></p>
+                    </div>
+                    
+                    <div class="product-detail-section">
+                        <h4><i class="fas fa-cogs"></i> Materiales</h4>
+                        <p id="detailProductMaterials" class="product-detail-materials"></p>
+                    </div>
+                    
+                    <div class="product-detail-section">
+                        <h4><i class="fas fa-list"></i> Especificaciones</h4>
+                        <p id="detailProductSpecifications" class="product-detail-specifications"></p>
+                    </div>
+                    
+                    <button id="detailWhatsappBtn" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        Comprar por WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- productos  -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Agregar Producto</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="productForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productName">Nombre del Producto *</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Precio *</label>
+                        <input type="number" id="productPrice" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Descripción *</label>
+                    <textarea id="productDescription" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productMaterials">Materiales</label>
+                    <textarea id="productMaterials" rows="2" placeholder="Describe los materiales utilizados..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productSpecifications">Especificaciones</label>
+                    <textarea id="productSpecifications" rows="2" placeholder="Especificaciones técnicas del producto..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="productImage">Imagen *</label>
+                    <input type="file" id="productImage" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="whatsappUrl">URL de WhatsApp *</label>
+                    <input type="url" id="whatsappUrl" required>
+                    <small>Ejemplo: https://wa.me/123456789?text=Hola,%20me%20interesa%20este%20producto</small>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- notificaciones -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <span class="notification-message"></span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

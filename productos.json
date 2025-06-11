@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "nombre": "Teclado Mecánico RGB",
+    "descripcion": "Teclado mecánico con retroiluminación RGB y switches azules.",
+    "precio": 45.99,
+    "imagen": "",
+    "materiales": "Plástico ABS, aluminio",
+    "especificaciones": "Switches azules, USB, RGB",
+    "whatsappUrl": "https://wa.me/584123456789?text=Hola,%20me%20interesa%20el%20teclado"
+  },
+  {
+    "id": 2,
+    "nombre": "Mouse Gamer",
+    "descripcion": "Mouse óptico con 6 botones programables y luces LED.",
+    "precio": 19.99,
+    "imagen": "",
+    "materiales": "Plástico ABS",
+    "especificaciones": "Óptico, 6 botones, LED",
+    "whatsappUrl": "https://wa.me/584123456789?text=Hola,%20me%20interesa%20el%20mouse"
+  }
+]
